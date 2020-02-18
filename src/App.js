@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+import MovieList from './components/MovieList';
+import SideBar from './components/SideBar';
+
+const Body = styled.div`
+  display: flex;
+  position: flex;
+`;
 
 function App() {
+
+  const [selected, setSelected] = useState('popular');
+
   return (
-    <h1>Main</h1>
+    <>
+      <Body>
+        <SideBar changeItem={setSelected} />
+        <MovieList route={selected} />
+      </Body>
+    </>
   );
 }
 

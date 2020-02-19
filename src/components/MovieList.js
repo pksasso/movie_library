@@ -10,36 +10,51 @@ const List = styled.div`
   grid-template-columns: repeat(auto-fit,minmax(5rem, 14rem));
   justify-content: space-evenly;
   align-content:space-between;
-  padding: 76px 20px 0px 20px ; 
+  padding: 0px 20px 0px 20px ; 
   grid-gap: 25px;
 `;
 
-function MovieList({ list }) {
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  width: 100%;
+`;
+
+const Heading = styled.h2`
+  font-weight: 700;
+  padding-left: 50px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  height: 100px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color:#fff;
+  margin: 0 0 1rem 1rem;
+`;
+
+
+function MovieList({ list, selected }) {
 
   const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
     setMoviesList(list)
-
   }, [list]);
 
-  // useEffect(() => {
-  //   async function loadData() {
-  //     const res = await api.get(`/movie/popular`);
-  //     //console.log(res);
-  //     setpopularMovies(res.data.results);
-  //   }
-  //   loadData();
-  // }, []);
-
-
+  function handleText(text) {
+    return text.split('_').join(' ');
+  }
 
   return (
-    <>
+    <Wrapper>
+      <Heading>{handleText(selected)} Movies</Heading>
       <List>
         {moviesList.map(movie => { return <Item movie={movie} key={movie.id} /> })}
       </List>
-    </>
+    </Wrapper>
   );
 }
 

@@ -30,17 +30,27 @@ const ItemTitle = styled.h2`
   color: #fff;
 `;
 
-function MenuItem({ genre, title, active, setSelected }) {
+function MenuItem({ genre, title, active, setSelected, setGenreId, isStatic }) {
 
   function editWord(word) {
     return word.toLowerCase().split(' ').join('_');
+  }
+
+  function handleChangeItem() {
+    if (isStatic) {
+      return setSelected(editWord(title));
+    } else {
+      setGenreId(genre.id);
+      setSelected(genre.name);
+    }
   }
 
   return (
     <div>
       <Item
         active={active}
-        onClick={() => setSelected(editWord(title))} >
+        static={isStatic}
+        onClick={handleChangeItem} >
         <ItemTitle>{title ? title : genre.name}</ItemTitle>
       </Item>
     </div>

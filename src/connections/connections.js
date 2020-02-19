@@ -5,3 +5,13 @@ export const getMovie = async (setMovieList, route) => {
   setMovieList(res.data.results);
 }
 
+export const getMovieByGenre = async (setMovieList, id) => {
+  const res = await api.get(`/discover/movie/`, {
+    params: {
+      with_genres: id,
+      sort_by: 'popularity.desc',
+    }
+  });
+  console.log(res.data.results);
+  setMovieList(res.data.results);
+}

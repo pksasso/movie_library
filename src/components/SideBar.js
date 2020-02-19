@@ -46,9 +46,7 @@ const Heading = styled.h2`
   }
 `;
 
-// import { Container } from './styles';
-
-function SideBar({ selected, setSelected }) {
+function SideBar({ selected, setSelected, setGenreId }) {
   const [genre, setGenre] = useState([]);
 
   useEffect(() => {
@@ -71,6 +69,7 @@ function SideBar({ selected, setSelected }) {
         title={categorie}
         active={selected === editWord(categorie) ? true : false}
         setSelected={setSelected}
+        isStatic={true}
       />
     );
   }
@@ -83,13 +82,15 @@ function SideBar({ selected, setSelected }) {
         </LogoDiv>
         <Heading>Discover</Heading>
         {renderStaticCategories()}
-
         <Heading>Genres</Heading>
         {genre.map(gen =>
           <MenuItem
             key={gen.id}
             genre={gen}
             active={selected === gen.name ? true : false}
+            setGenreId={setGenreId}
+            setSelected={setSelected}
+            isStatic={false}
           />
         )}
       </Wrapper>

@@ -2,16 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.div`
-  height: 50px;
+  height: 30px;
   display:flex;
   padding-left: 15px;
+  margin: 5px;
   align-items: center;
   justify-content: start;
+  border-color: ${props => (props.active ? '#c7c7c7' : 'transparent')};
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
   :hover{
     border-color: #c7c7c7;
     border-style: solid;
     border-width: 1px;
-    border-radius: 10px;
+    border-radius: 15px;
+    background-color: #171717;
+    box-shadow: 0px 0px 13px 0px rgba(148,148,148,1);
     cursor: pointer;
   }
 `;
@@ -23,27 +30,19 @@ const ItemTitle = styled.h2`
   color: #fff;
 `;
 
-function verifyText(text) {
-  switch (text) {
-    case 'popular':
-      return 'popular'
-      break;
-    case 'top rated':
-      return 'top_rated'
-      break;
-    case 'upcoming':
-      return 'upcoming'
-      break;
+function MenuItem({ genre, title, active, setSelected }) {
+
+  function editWord(word) {
+    return word.toLowerCase().split(' ').join('_');
   }
-}
 
-
-
-function MenuItem({ genre, title, change }) {
   return (
     <div>
-      <Item onClick={() => change(title ? verifyText(title.toLowerCase()) : null)} ><ItemTitle>{title ? title : genre.name}</ItemTitle></Item>
-
+      <Item
+        active={active}
+        onClick={() => setSelected(editWord(title))} >
+        <ItemTitle>{title ? title : genre.name}</ItemTitle>
+      </Item>
     </div>
   );
 }

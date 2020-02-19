@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import api from '../api/api';
+//import api from '../api/api';
 import Item from './MovieItem';
 
 const List = styled.div`
@@ -14,22 +14,30 @@ const List = styled.div`
   grid-gap: 25px;
 `;
 
-function MovieList(props) {
+function MovieList({ list }) {
 
-  const [popularMovies, setpopularMovies] = useState([]);
+  const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
-    async function loadData() {
-      const res = await api.get(`/movie/${props.route}`);
-      setpopularMovies(res.data.results);
-    }
-    loadData();
-  }, [props.route]);
+    setMoviesList(list)
+
+  }, [list]);
+
+  // useEffect(() => {
+  //   async function loadData() {
+  //     const res = await api.get(`/movie/popular`);
+  //     //console.log(res);
+  //     setpopularMovies(res.data.results);
+  //   }
+  //   loadData();
+  // }, []);
+
+
 
   return (
     <>
       <List>
-        {popularMovies.map(movie => { return <Item movie={movie} key={movie.id} /> })}
+        {moviesList.map(movie => { return <Item movie={movie} key={movie.id} /> })}
       </List>
     </>
   );

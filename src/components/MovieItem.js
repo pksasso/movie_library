@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Loader from './Loader';
 
 const Content = styled.div`
   display:flex;
@@ -39,10 +40,18 @@ const Details = styled.div`
 
 
 function Item({ movie }) {
+
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <>
+      {isLoading ? <Loader /> : null}
       <Content>
-        <MovieImg src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt="poster" />
+        <MovieImg
+          src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+          alt="poster"
+          onLoad={() => setIsLoading(false)}
+        />
         <Details>
           <Title>{movie.title}</Title>
           <Title>{movie.vote_average}</Title>

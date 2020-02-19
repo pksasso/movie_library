@@ -5,6 +5,8 @@ import api from '../api/api';
 
 import MenuItem from './MenuItem';
 
+const staticCategories = ['Popular', 'Top Rated', 'Upcoming']
+
 const Wrapper = styled.div`
   margin: 10px 10px 10px 10px;
   padding: 15px 0 25px 0;
@@ -32,13 +34,21 @@ const Logo = styled.div`
   background-color: #c7c7c7;
 `;
 
-const Gap = styled.div`
-  height: 40px;
+const Heading = styled.h2`
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color:#fff;
+  margin: 0 0 1rem 1rem;
+  &:not(:first-child) {
+    margin-top: 3rem;
+  }
 `;
 
 // import { Container } from './styles';
 
-function SideBar(props) {
+function SideBar({ selected, setSelected }) {
   const [genre, setGenre] = useState([]);
 
   useEffect(() => {
@@ -46,9 +56,24 @@ function SideBar(props) {
       const res = await api.get(`/genre/movie/list`);
       setGenre(res.data.genres);
     }
-
     loadGenre();
   }, []);
+
+  function editWord(word) {
+    return word.toLowerCase().split(' ').join('_');
+  }
+
+  function renderStaticCategories() {
+    //console.log(selected);
+    return staticCategories.map(categorie =>
+      <MenuItem
+        key={categorie}
+        title={categorie}
+        active={selected === editWord(categorie) ? true : false}
+        setSelected={setSelected}
+      />
+    );
+  }
 
   return (
     <>
@@ -56,11 +81,17 @@ function SideBar(props) {
         <LogoDiv>
           <Logo />
         </LogoDiv>
-        <MenuItem title="Popular" change={props.changeItem} />
-        <MenuItem title="Top Rated" change={props.changeItem} />
-        <MenuItem title="Upcoming" change={props.changeItem} />
-        <Gap />
-        {genre.map(gen => <MenuItem genre={gen} key={gen.id} change={props.changeItem} />)}
+        <Heading>Discover</Heading>
+        {renderStaticCategories()}
+
+        <Heading>Genres</Heading>
+        {genre.map(gen =>
+          <MenuItem
+            key={gen.id}
+            genre={gen}
+            active={selected === gen.name ? true : false}
+          />
+        )}
       </Wrapper>
     </>
   );

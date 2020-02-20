@@ -10,16 +10,17 @@ const staticCategories = ['Popular', 'Top Rated', 'Upcoming']
 const Wrapper = styled.div`
   margin: 10px 10px 10px 10px;
   padding: 15px 0 25px 0;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   height: min-content;
-  width: 200px;
+  width: 170px;
   background-color: #272727;
   border-radius: 10px;
   box-shadow: 0px 0px 100px -60px rgba(255,255,255,0.29);
 `;
 
 const LogoDiv = styled.div`
-  width: 100%;
+  width: 170px;
   height: 100px;
   display: flex;
   justify-content: center;

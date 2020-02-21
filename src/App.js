@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+
+import Discover from './containers/Discover';
 
 import { getMovie, getMovieByGenre } from './connections/connections';
 import MovieList from './components/MovieList';
 import SideBar from './components/SideBar';
 
+
 const Body = styled.div`
   display: flex;
-  position: flex;
+  flex-direction:row;
 `;
 
 function App() {
@@ -19,17 +23,16 @@ function App() {
   useEffect(() => {
     function handleRoute() {
       switch (selected) {
-        case 'top_rated':
+        case 'popular':
           getMovie(setMovieList, selected);
           break;
-        case 'popular':
+        case 'top_rated':
           getMovie(setMovieList, selected);
           break;
         case 'upcoming':
           getMovie(setMovieList, selected);
           break;
         default:
-          console.log(genreId.toString());
           getMovieByGenre(setMovieList, genreId.toString());
           break;
       }
@@ -39,14 +42,43 @@ function App() {
 
   return (
     <>
-      <Body>
-        <SideBar
-          selected={selected}
-          setSelected={setSelected}
-          setGenreId={setGenreId}
-        />
-        <MovieList list={movieList} selected={selected} />
-      </Body>
+      <Router>
+        <Body>
+          <SideBar
+            selected={selected}
+            setSelected={setSelected}
+            setGenreId={setGenreId}
+          />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => (<Redirect from={'/'} to={'/discover/popular'} />)}
+            >
+            </Route>
+            <Route
+              path={'/discover/:name'}
+              exact
+            >
+              <Discover
+                list={movieList}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Route>
+            <Route
+              path={'/genres/:name'}
+              exact
+            >
+              <MovieList
+                list={movieList}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Route>
+          </Switch>
+        </Body>
+      </Router>
     </>
   );
 }

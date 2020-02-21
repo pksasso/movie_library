@@ -36,7 +36,7 @@ const Heading = styled.h2`
 `;
 
 
-function MovieList({ list, selected }) {
+function MovieList({ list, selected, setSelected }) {
 
   const [moviesList, setMoviesList] = useState([]);
 
@@ -52,7 +52,14 @@ function MovieList({ list, selected }) {
     <Wrapper>
       <Heading>{handleText(selected)} Movies</Heading>
       <List>
-        {moviesList.map(movie => { return <Item movie={movie} key={movie.id} /> })}
+        {moviesList.map(
+          movie => {
+            return <Item
+              movie={movie}
+              key={movie.id}
+              setSelected={setSelected}
+            />
+          })}
       </List>
     </Wrapper>
   );

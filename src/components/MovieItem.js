@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Loader from './Loader';
 
-const Content = styled.div`
+import star from '../assets/star.svg';
+
+const Content = styled(Link)`
+  text-decoration:none;
   display:flex;
   background-color: transparent;
   flex-direction: column;
@@ -31,22 +35,50 @@ const Title = styled.h2`
   text-align: center;
   font-size: 16px;
   font-family: 'Montserrat';
+  margin:0;
+  padding-top:10px;
+  font-weight: 500;
+  color: #fff;
+`;
+const Vote = styled.h2`
+  text-align: center;
+  font-size: 16px;
+  font-family: 'Montserrat';
+  margin:0;
+  padding-left:5px;
   font-weight: 500;
   color: #fff;
 `;
 
 const Details = styled.div`
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction:column;
 `;
 
+const StarsDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  padding-top: 7px;
+  justify-content:center;
+`;
 
-function Item({ movie }) {
+const StartImg = styled.img`
+  height: 17px;
+`;
+
+function Item({ movie, setSelected }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
       {isLoading ? <Loader /> : null}
-      <Content>
+      <Content
+        to={`/movie/${movie.id}`}
+        onClick={() => setSelected('')}
+      >
         <MovieImg
           src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
           alt="poster"
@@ -54,7 +86,10 @@ function Item({ movie }) {
         />
         <Details>
           <Title>{movie.title}</Title>
-          <Title>{movie.vote_average}</Title>
+          <StarsDiv>
+            <StartImg src={star} alt="star" />
+            <Vote>{movie.vote_average} / 10</Vote>
+          </StarsDiv>
         </Details>
       </Content>
     </>

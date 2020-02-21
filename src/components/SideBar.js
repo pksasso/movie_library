@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import api from '../api/api';
+import setSelectedMenu from '../functions/index';
 
 import MenuItem from './MenuItem';
 
@@ -26,7 +28,7 @@ const LogoDiv = styled.div`
   justify-content: center;
 `;
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   display: flex;
   align-content:center;
   height: 75px;
@@ -47,6 +49,11 @@ const Heading = styled.h2`
   }
 `;
 
+const LinkWrap = styled(Link)`
+  text-decoration:none;
+
+`;
+
 function SideBar({ selected, setSelected, setGenreId }) {
   const [genre, setGenre] = useState([]);
 
@@ -63,15 +70,18 @@ function SideBar({ selected, setSelected, setGenreId }) {
   }
 
   function renderStaticCategories() {
-    //console.log(selected);
     return staticCategories.map(categorie =>
-      <MenuItem
+      <LinkWrap
         key={categorie}
-        title={categorie}
-        active={selected === editWord(categorie) ? true : false}
-        setSelected={setSelected}
-        isStatic={true}
-      />
+        to={`/discover/${categorie}`}
+      >
+        <MenuItem
+          title={categorie}
+          active={selected === editWord(categorie) ? true : false}
+          setSelected={setSelected}
+          isStatic={true}
+        />
+      </LinkWrap>
     );
   }
 
@@ -79,20 +89,24 @@ function SideBar({ selected, setSelected, setGenreId }) {
     <>
       <Wrapper>
         <LogoDiv>
-          <Logo />
+          <Logo to={`/`} />
         </LogoDiv>
         <Heading>Discover</Heading>
         {renderStaticCategories()}
         <Heading>Genres</Heading>
         {genre.map(gen =>
-          <MenuItem
+          <LinkWrap
+            to={`/genres/${gen.name}`}
             key={gen.id}
-            genre={gen}
-            active={selected === gen.name ? true : false}
-            setGenreId={setGenreId}
-            setSelected={setSelected}
-            isStatic={false}
-          />
+          >
+            <MenuItem
+              genre={gen}
+              active={selected === gen.name ? true : false}
+              setGenreId={setGenreId}
+              setSelected={setSelected}
+              isStatic={false}
+            />
+          </LinkWrap>
         )}
       </Wrapper>
     </>

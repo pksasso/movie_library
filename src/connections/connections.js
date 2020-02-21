@@ -12,6 +12,5 @@ export const getMovieByGenre = async (setMovieList, id) => {
       sort_by: 'popularity.desc',
     }
   });
-  console.log(res.data.results);
   setMovieList(res.data.results);
 }

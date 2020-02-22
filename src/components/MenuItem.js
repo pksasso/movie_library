@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+
+import { MovieContext } from '../contexts/MovieContext';
 
 const Item = styled.div`
   height: 30px;
@@ -30,7 +32,9 @@ const ItemTitle = styled.h2`
   color: #fff;
 `;
 
-function MenuItem({ genre, title, active, setSelected, setGenreId, isStatic }) {
+function MenuItem({ genre, title, active, isStatic }) {
+
+  const { selected, setSelected, setGenreId } = useContext(MovieContext);
 
   function editWord(word) {
     return word.toLowerCase().split(' ').join('_');
@@ -38,10 +42,13 @@ function MenuItem({ genre, title, active, setSelected, setGenreId, isStatic }) {
 
   function handleChangeItem() {
     if (isStatic) {
-      return setSelected(editWord(title));
+
+
+      setSelected((editWord(title)));
+
     } else {
       setGenreId(genre.id);
-      setSelected(genre.name);
+      setSelected(genre.name.toLowerCase());
     }
   }
 

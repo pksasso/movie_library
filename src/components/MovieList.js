@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
 //import api from '../api/api';
+import { MovieContext } from '../contexts/MovieContext';
 import Item from './MovieItem';
+
+import {
+  getMovie,
+  getMovieByGenre
+} from '../connections/connections';
 
 const List = styled.div`
   width: 100%;
@@ -36,13 +42,31 @@ const Heading = styled.h2`
 `;
 
 
-function MovieList({ list, selected, setSelected }) {
+function MovieList() {
 
+  const { selected, setSelected, genreId } = useContext(MovieContext);
   const [moviesList, setMoviesList] = useState([]);
 
+
   useEffect(() => {
-    setMoviesList(list)
-  }, [list]);
+    function handleRoute() {
+      switch (selected) {
+        case 'popular':
+          getMovie(setMoviesList, selected);
+          break;
+        case 'top_rated':
+          getMovie(setMoviesList, selected);
+          break;
+        case 'upcoming':
+          getMovie(setMoviesList, selected);
+          break;
+        default:
+          getMovieByGenre(setMoviesList, genreId.toString());
+          break;
+      }
+    }
+    handleRoute();
+  }, [selected, setMoviesList, genreId]);
 
   function handleText(text) {
     return text.split('_').join(' ');

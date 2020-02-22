@@ -8,6 +8,7 @@ import star from '../assets/star.svg';
 const Content = styled(Link)`
   text-decoration:none;
   display:flex;
+  height:100%;
   background-color: transparent;
   flex-direction: column;
   transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -25,6 +26,19 @@ const MovieImg = styled.img`
   height: auto;
   display: block;
   object-fit: cover;
+  border-radius: 0.8rem;
+  ${Content}:hover &{
+    box-shadow: 0px 0px 118px -80px rgba(255,255,255,0.29);
+  }
+`;
+
+const MovieLost = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  background-color: grey;
   border-radius: 0.8rem;
   ${Content}:hover &{
     box-shadow: 0px 0px 118px -80px rgba(255,255,255,0.29);
@@ -74,16 +88,16 @@ function Item({ movie, setSelected }) {
 
   return (
     <>
-      {isLoading ? <Loader /> : null}
+      {isLoading && movie.poster_path ? <Loader /> : null}
       <Content
         to={`/movie/${movie.id}`}
         onClick={() => setSelected('')}
-      >
-        <MovieImg
-          src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-          alt="poster"
-          onLoad={() => setIsLoading(false)}
-        />
+      >{movie.poster_path ? <MovieImg
+        src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+        alt="poster"
+        onLoad={() => setIsLoading(false)}
+      /> : <MovieLost><Title>Without img</Title></MovieLost>}
+
         <Details>
           <Title>{movie.title}</Title>
           <StarsDiv>

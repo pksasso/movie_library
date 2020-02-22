@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { MovieContext } from '../contexts/MovieContext';
 import api from '../api/api';
-import setSelectedMenu from '../functions/index';
 
 import MenuItem from './MenuItem';
 
@@ -54,7 +54,9 @@ const LinkWrap = styled(Link)`
 
 `;
 
-function SideBar({ selected, setSelected, setGenreId }) {
+function SideBar({ setGenreId }) {
+  const msg = useContext(MovieContext);
+  const { selected, setSelected } = useContext(MovieContext)
   const [genre, setGenre] = useState([]);
 
   useEffect(() => {
@@ -70,6 +72,7 @@ function SideBar({ selected, setSelected, setGenreId }) {
   }
 
   function renderStaticCategories() {
+    console.log("[CONTEXT]" + selected)
     return staticCategories.map(categorie =>
       <LinkWrap
         key={categorie}
@@ -78,7 +81,6 @@ function SideBar({ selected, setSelected, setGenreId }) {
         <MenuItem
           title={categorie}
           active={selected === editWord(categorie) ? true : false}
-          setSelected={setSelected}
           isStatic={true}
         />
       </LinkWrap>
@@ -89,7 +91,7 @@ function SideBar({ selected, setSelected, setGenreId }) {
     <>
       <Wrapper>
         <LogoDiv>
-          <Logo to={`/`} />
+          <Logo to={`/`} onClick={() => setSelected('popular')} />
         </LogoDiv>
         <Heading>Discover</Heading>
         {renderStaticCategories()}
@@ -101,9 +103,8 @@ function SideBar({ selected, setSelected, setGenreId }) {
           >
             <MenuItem
               genre={gen}
-              active={selected === gen.name ? true : false}
+              active={selected === gen.name.toLowerCase() ? true : false}
               setGenreId={setGenreId}
-              setSelected={setSelected}
               isStatic={false}
             />
           </LinkWrap>

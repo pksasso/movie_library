@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
+
+import { MovieContext } from '../contexts/MovieContext';
 
 import star from '../assets/star.svg';
 
@@ -82,7 +84,8 @@ const StartImg = styled.img`
   height: 17px;
 `;
 
-function Item({ movie, setSelected }) {
+function Item({ movie }) {
+  const { setSelected } = useContext(MovieContext);
 
   const [isLoading, setIsLoading] = useState(true);
 

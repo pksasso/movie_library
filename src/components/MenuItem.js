@@ -34,7 +34,7 @@ const ItemTitle = styled.h2`
 
 function MenuItem({ genre, title, active, isStatic }) {
 
-  const { selected, setSelected, setGenreId } = useContext(MovieContext);
+  const { setSelected, setGenreId } = useContext(MovieContext);
 
   function editWord(word) {
     return word.toLowerCase().split(' ').join('_');
@@ -42,10 +42,7 @@ function MenuItem({ genre, title, active, isStatic }) {
 
   function handleChangeItem() {
     if (isStatic) {
-
-
       setSelected((editWord(title)));
-
     } else {
       setGenreId(genre.id);
       setSelected(genre.name.toLowerCase());

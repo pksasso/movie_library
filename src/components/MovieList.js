@@ -1,14 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-//import api from '../api/api';
-import { MovieContext } from '../contexts/MovieContext';
 import Item from './MovieItem';
-
-import {
-  getMovie,
-  getMovieByGenre
-} from '../connections/connections';
 
 const List = styled.div`
   width: 100%;
@@ -41,32 +34,7 @@ const Heading = styled.h2`
   margin: 0 0 1rem 1rem;
 `;
 
-
-function MovieList() {
-
-  const { selected, setSelected, genreId } = useContext(MovieContext);
-  const [moviesList, setMoviesList] = useState([]);
-
-
-  useEffect(() => {
-    function handleRoute() {
-      switch (selected) {
-        case 'popular':
-          getMovie(setMoviesList, selected);
-          break;
-        case 'top_rated':
-          getMovie(setMoviesList, selected);
-          break;
-        case 'upcoming':
-          getMovie(setMoviesList, selected);
-          break;
-        default:
-          getMovieByGenre(setMoviesList, genreId.toString());
-          break;
-      }
-    }
-    handleRoute();
-  }, [selected, setMoviesList, genreId]);
+function MovieList({ header, movieList }) {
 
   function handleText(text) {
     return text.split('_').join(' ');
@@ -74,14 +42,13 @@ function MovieList() {
 
   return (
     <Wrapper>
-      <Heading>{handleText(selected)} Movies</Heading>
+      <Heading>{handleText(header)} Movies</Heading>
       <List>
-        {moviesList.map(
+        {movieList.map(
           movie => {
             return <Item
               movie={movie}
               key={movie.id}
-              setSelected={setSelected}
             />
           })}
       </List>

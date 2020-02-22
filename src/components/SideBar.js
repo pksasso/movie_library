@@ -54,8 +54,7 @@ const LinkWrap = styled(Link)`
 
 `;
 
-function SideBar({ setGenreId }) {
-  const msg = useContext(MovieContext);
+function SideBar() {
   const { selected, setSelected } = useContext(MovieContext)
   const [genre, setGenre] = useState([]);
 
@@ -72,7 +71,6 @@ function SideBar({ setGenreId }) {
   }
 
   function renderStaticCategories() {
-    console.log("[CONTEXT]" + selected)
     return staticCategories.map(categorie =>
       <LinkWrap
         key={categorie}
@@ -104,7 +102,6 @@ function SideBar({ setGenreId }) {
             <MenuItem
               genre={gen}
               active={selected === gen.name.toLowerCase() ? true : false}
-              setGenreId={setGenreId}
               isStatic={false}
             />
           </LinkWrap>

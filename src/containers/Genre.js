@@ -1,20 +1,21 @@
 import React, { useEffect, useContext } from 'react';
 
 import MovieList from '../components/MovieList';
-import { getMovie } from '../connections/connections';
+import { getMovieByGenre } from '../connections/connections';
 
 import { MovieContext } from '../contexts/MovieContext';
 
-function Discover() {
+function Genre() {
 
   const {
     selected,
+    genreId,
     movieList,
     setMovieList } = useContext(MovieContext);
 
   useEffect(() => {
-    getMovie(setMovieList, selected);
-  }, [selected, setMovieList]);
+    getMovieByGenre(setMovieList, genreId.toString());
+  }, [movieList, genreId, setMovieList]);
 
   return (
     <>
@@ -23,4 +24,4 @@ function Discover() {
   );
 }
 
-export default Discover;
+export default Genre;

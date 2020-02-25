@@ -8,11 +8,12 @@ import {
 } from 'react-router-dom';
 
 import { MovieProvider } from './contexts/MovieContext';
+import SideBar from './components/SideBar';
 
 import Discover from './containers/Discover';
 import Genre from './containers/Genre';
+import Movie from './containers/Movie';
 
-import SideBar from './components/SideBar';
 
 const Body = styled.div`
   display: flex;
@@ -41,6 +42,11 @@ function App() {
                 path={'/genres/:name'}
                 exact
                 component={Genre}
+              />
+              <Route
+                path={'/movie/:id'}
+                exact
+                component={Movie}
               />
             </Switch>
           </Body>

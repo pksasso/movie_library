@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { animateScroll } from 'react-scroll';
 
 import MovieList from '../components/MovieList';
 import { getMovieByGenre } from '../connections/connections';
@@ -14,8 +15,9 @@ function Genre() {
     setMovieList } = useContext(MovieContext);
 
   useEffect(() => {
+    animateScroll.scrollToTop({ smooth: true });
     getMovieByGenre(setMovieList, genreId.toString());
-  }, [movieList, genreId, setMovieList]);
+  }, [selected, genreId]);
 
   return (
     <>

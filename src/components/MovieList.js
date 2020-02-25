@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import Item from './MovieItem';
@@ -35,6 +35,10 @@ const Heading = styled.h2`
 `;
 
 function MovieList({ header, movieList }) {
+
+  useEffect(() => {
+
+  }, [movieList])
 
   function handleText(text) {
     return text.split('_').join(' ');

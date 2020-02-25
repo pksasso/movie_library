@@ -55,13 +55,12 @@ const LinkWrap = styled(Link)`
 `;
 
 function SideBar() {
-  const { selected, setSelected } = useContext(MovieContext)
-  const [genre, setGenre] = useState([]);
+  const { selected, setSelected, genreList, setGenreList } = useContext(MovieContext)
 
   useEffect(() => {
     async function loadGenre() {
       const res = await api.get(`/genre/movie/list`);
-      setGenre(res.data.genres);
+      setGenreList(res.data.genres);
     }
     loadGenre();
   }, []);
@@ -94,7 +93,7 @@ function SideBar() {
         <Heading>Discover</Heading>
         {renderStaticCategories()}
         <Heading>Genres</Heading>
-        {genre.map(gen =>
+        {genreList.map(gen =>
           <LinkWrap
             to={`/genres/${gen.name}`}
             key={gen.id}

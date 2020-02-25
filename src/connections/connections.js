@@ -14,3 +14,9 @@ export const getMovieByGenre = async (setMovieList, id) => {
   });
   setMovieList(res.data.results);
 }
+
+export const getMovieDetails = async (id, setMovie) => {
+  const res = await api.get(`/movie/${id}`);
+
+  setMovie(res.data);
+}

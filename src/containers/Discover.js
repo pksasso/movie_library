@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { animateScroll } from 'react-scroll';
 
 import MovieList from '../components/MovieList';
 import { getMovie } from '../connections/connections';
@@ -13,6 +14,7 @@ function Discover() {
     setMovieList } = useContext(MovieContext);
 
   useEffect(() => {
+    animateScroll.scrollToTop({ smooth: true });
     getMovie(setMovieList, selected);
   }, [selected, setMovieList]);
 

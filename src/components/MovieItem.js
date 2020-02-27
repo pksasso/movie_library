@@ -85,7 +85,7 @@ const StartImg = styled.img`
 `;
 
 function Item({ movie }) {
-  const { setSelected, setMovieSelected } = useContext(MovieContext);
+  const { setMenuSelected, setMovieSelected } = useContext(MovieContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -96,7 +96,7 @@ function Item({ movie }) {
         to={`/movie/${movie.id}`}
         onClick={() => {
           setMovieSelected(movie.id.toString());
-          setSelected('');
+          setMenuSelected('');
         }}
       >{movie.poster_path ? <MovieImg
         src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}

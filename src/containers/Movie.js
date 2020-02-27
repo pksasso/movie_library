@@ -103,14 +103,15 @@ const GenreItem = styled.p`
     white-space: nowrap;
 `;
 
-function Movie() {
-  const { movieSelected, genreList } = useContext(MovieContext);
+function Movie({ match }) {
+  const { setMenuSelected } = useContext(MovieContext);
   const [movie, setMovie] = useState({})
 
   useEffect(() => {
     animateScroll.scrollToTop({ smooth: true });
-    setMovie(getMovieDetails(movieSelected, setMovie));
-  }, []);
+    setMenuSelected('');
+    setMovie(getMovieDetails(match.params.id, setMovie));
+  }, [match.params.id, setMenuSelected]);
 
   function splitYear(date) {
     if (!date) {

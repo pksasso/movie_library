@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { MovieContext } from '../contexts/MovieContext';
-import api from '../api/api';
+import { loadGenre } from '../connections/connections';
 
 import MenuItem from './MenuItem';
 
-const staticCategories = ['Popular', 'Top Rated', 'Upcoming']
+const staticCategories = ['Popular', 'Top Rated', 'Upcoming'];
 
 const Wrapper = styled.div`
   margin: 10px 10px 10px 10px;
@@ -55,15 +55,19 @@ const LinkWrap = styled(Link)`
 `;
 
 function SideBar() {
-  const { selected, setSelected, genreList, setGenreList } = useContext(MovieContext)
+  const {
+    menuSelected,
+    setMenuSelected,
+    genreList,
+    setGenreList } = useContext(MovieContext);
 
   useEffect(() => {
-    async function loadGenre() {
-      const res = await api.get(`/genre/movie/list`);
+    async function load() {
+      const res = await loadGenre();
       setGenreList(res.data.genres);
     }
-    loadGenre();
-  }, []);
+    load();
+  }, [setGenreList]);
 
   function editWord(word) {
     return word.toLowerCase().split(' ').join('_');
@@ -77,7 +81,7 @@ function SideBar() {
       >
         <MenuItem
           title={categorie}
-          active={selected === editWord(categorie) ? true : false}
+          active={menuSelected === editWord(categorie) ? true : false}
           isStatic={true}
         />
       </LinkWrap>
@@ -88,7 +92,7 @@ function SideBar() {
     <>
       <Wrapper>
         <LogoDiv>
-          <Logo to={`/`} onClick={() => setSelected('popular')} />
+          <Logo to={`/`} onClick={() => setMenuSelected('popular')} />
         </LogoDiv>
         <Heading>Discover</Heading>
         {renderStaticCategories()}
@@ -100,7 +104,7 @@ function SideBar() {
           >
             <MenuItem
               genre={gen}
-              active={selected === gen.name.toLowerCase() ? true : false}
+              active={menuSelected === gen.name.toLowerCase() ? true : false}
               isStatic={false}
             />
           </LinkWrap>

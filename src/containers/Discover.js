@@ -6,21 +6,23 @@ import { getMovie } from '../connections/connections';
 
 import { MovieContext } from '../contexts/MovieContext';
 
-function Discover() {
+function Discover({ match }) {
 
   const {
-    selected,
     movieList,
-    setMovieList } = useContext(MovieContext);
+    setMovieList,
+    setMenuSelected } = useContext(MovieContext);
+  const query = match.params.name.replace(/\s+/g, '_').toLowerCase();
 
   useEffect(() => {
     animateScroll.scrollToTop({ smooth: true });
-    getMovie(setMovieList, selected);
-  }, [selected, setMovieList]);
+    getMovie(setMovieList, query);
+    setMenuSelected(query);
+  }, [match.params.name, query, setMenuSelected, setMovieList]);
 
   return (
     <>
-      <MovieList header={selected} movieList={movieList} />
+      <MovieList header={query} movieList={movieList} />
     </>
   );
 }

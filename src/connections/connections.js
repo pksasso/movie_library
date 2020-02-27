@@ -5,10 +5,14 @@ export const getMovie = async (setMovieList, route) => {
   setMovieList(res.data.results);
 }
 
-export const getMovieByGenre = async (setMovieList, id) => {
+export const clearMovie = (setMovieList) => {
+  setMovieList([]);
+}
+
+export const getMovieByGenre = async (setMovieList, genreId) => {
   const res = await api.get(`/discover/movie/`, {
     params: {
-      with_genres: id,
+      with_genres: genreId,
       sort_by: 'popularity.desc',
     }
   });
@@ -17,6 +21,11 @@ export const getMovieByGenre = async (setMovieList, id) => {
 
 export const getMovieDetails = async (id, setMovie) => {
   const res = await api.get(`/movie/${id}`);
-
   setMovie(res.data);
+}
+
+export const loadGenre = () => {
+  return api.get(`/genre/movie/list`).then(
+    function (res) { return res }
+  );
 }

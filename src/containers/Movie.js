@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { animateScroll } from 'react-scroll';
 
 import { getMovieDetails } from '../connections/connections';
@@ -92,15 +93,23 @@ const GenreList = styled.div`
   
 `;
 
+const LinkWrap = styled(Link)`
+  text-decoration:none;
+  :not(:first-child) {
+    margin-left: 7px;  
+  }
+`;
+
 const GenreItem = styled.p`
   margin:0;
   color:#fff;
   width: min-content;
   border: 1px solid #fff;
-  border-radius: 10px;
-  padding:2px;
+  border-radius: 15px;
+  padding: 5px 10px 5px 10px;
+  
   overflow: hidden;
-    white-space: nowrap;
+  white-space: nowrap;
 `;
 
 function Movie({ match }) {
@@ -127,7 +136,12 @@ function Movie({ match }) {
     } else {
 
       return genres.map(genre => (
-        <GenreItem>{genre.name}</GenreItem>
+        <LinkWrap
+          key={genre}
+          to={`/genres/${genre.name}`}
+        >
+          <GenreItem>{genre.name}</GenreItem>
+        </LinkWrap>
       ));
     }
   }

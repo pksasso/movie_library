@@ -8,9 +8,10 @@ const List = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(5rem, 14rem));
   justify-content: space-evenly;
-  align-content:space-between;
+  align-content: space-between;
   padding: 0px 20px 0px 20px ; 
-  grid-gap: 25px;
+  grid-row-gap: 50px;
+  grid-column-gap: 20px;
 `;
 
 const Wrapper = styled.div`
@@ -20,24 +21,32 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Heading = styled.h2`
+const MoviesText = styled.h2`
   font-weight: 700;
-  padding-left: 50px;
-  width:100%;
-  display:flex;
-  align-items:center;
-  height: 100px;
-  font-size: 1.1rem;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: -0.5px;
-  color:#fff;
+  margin: 0;
+  color: #fff;
   margin: 0 0 1rem 1rem;
+`;
+
+const PageTitle = styled.h2`
+  font-weight: 200;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color: #fff;
+  margin: 15px 0 0 15px;
+`;
+
+const HeaderWrapper = styled.div`
+ margin-bottom: 25px;
 `;
 
 function MovieList({ header, movieList }) {
 
   useEffect(() => {
-
   }, [movieList])
 
   function handleText(text) {
@@ -46,7 +55,10 @@ function MovieList({ header, movieList }) {
 
   return (
     <Wrapper>
-      <Heading>{handleText(header)} Movies</Heading>
+      <HeaderWrapper>
+        <PageTitle>{handleText(header)}</PageTitle>
+        <MoviesText>Movies</MoviesText>
+      </HeaderWrapper>
       <List>
         {movieList.map(
           movie => {

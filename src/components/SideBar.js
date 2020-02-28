@@ -16,9 +16,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: min-content;
   width: 170px;
-  background-color: #272727;
+  background-color: #171e22;
   border-radius: 10px;
-  box-shadow: 0px 0px 100px -60px rgba(255,255,255,0.29);
+  box-shadow: 0px 0px 35px 6px rgba(23,30,34,0.64);
 `;
 
 const LogoDiv = styled.div`
@@ -30,7 +30,7 @@ const LogoDiv = styled.div`
 
 const Logo = styled(Link)`
   display: flex;
-  align-content:center;
+  align-content: center;
   height: 75px;
   width: 75px;
   border-radius: 5px;
@@ -42,7 +42,7 @@ const Heading = styled.h2`
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: -0.5px;
-  color:#fff;
+  color: #fff;
   margin: 0 0 1rem 1rem;
   &:not(:first-child) {
     margin-top: 3rem;

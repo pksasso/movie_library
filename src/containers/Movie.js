@@ -38,7 +38,7 @@ const WrappImage = styled.div`
 const Title = styled.h3`
   color: #fff;
   font-family: 'Montserrat';
-  font-size:32px;
+  font-size: 32px;
   margin: 0;
   padding: 0;
 `;
@@ -46,7 +46,7 @@ const Title = styled.h3`
 const InfoWrapper = styled.div`
   width:50%;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   height: min-content;
   padding-top: 50px;
 `;
@@ -56,7 +56,7 @@ const Tagline = styled.h3`
   margin: 0;
   padding: 0;
   font-family: 'Montserrat';
-  font-size:20px;
+  font-size: 20px;
 `;
 
 const Overview = styled.p`
@@ -69,7 +69,7 @@ const Overview = styled.p`
 const StarsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
   padding-top: 7px;
   
 `;
@@ -79,16 +79,16 @@ const StartImg = styled.img`
 `;
 
 const Vote = styled.p`
-  color:#fff;
+  color: #fff;
   font-family: 'Montserrat';
 `;
 
 const GenreList = styled.div`
   display: flex;
   flex-direction: row;
-  width:100%;
-  margin:0;
-  padding:0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   height: min-content;
   
 `;

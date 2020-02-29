@@ -10,15 +10,11 @@ import MenuItem from './MenuItem';
 const staticCategories = ['Popular', 'Top Rated', 'Upcoming'];
 
 const Wrapper = styled.div`
-  margin: 10px 10px 10px 10px;
   padding: 15px 0 25px 0;
   display: flex;
   flex-direction: column;
-  height: min-content;
-  width: 170px;
+  width: 200px;
   background-color: #171e22;
-  border-radius: 10px;
-  box-shadow: 0px 0px 35px 6px rgba(23,30,34,0.64);
 `;
 
 const LogoDiv = styled.div`

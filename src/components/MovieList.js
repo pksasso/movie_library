@@ -22,29 +22,6 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const MoviesText = styled.h2`
-  font-weight: 700;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
-  margin: 0;
-  color: #fff;
-  margin: 0 0 1rem 1rem;
-`;
-
-const PageTitle = styled.h2`
-  font-weight: 200;
-  font-size: 25px;
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
-  color: #fff;
-  margin: 15px 0 0 15px;
-`;
-
-const HeaderWrapper = styled.div`
- margin-bottom: 25px;
-`;
-
 function MovieList({ header, movieList }) {
 
   useEffect(() => {

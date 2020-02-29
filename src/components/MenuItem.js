@@ -4,35 +4,27 @@ import styled from 'styled-components';
 import { MovieContext } from '../contexts/MovieContext';
 
 const Item = styled.div`
-  height: 30px;
-  display:flex;
+  height: 35px;
+  display: flex;
   padding-left: 15px;
-  margin: 5px;
   align-items: center;
-  justify-content: start;
-  border-color: ${props => (props.active ? '#c7c7c7' : 'transparent')};
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 15px;
-    transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  background-color: ${props => (props.active ? '#222b31' : '')};
+  transition: all 300ms; 
   :hover{
-    border-color: #c7c7c7;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 15px;
+    background-color: #222b31;
     cursor: pointer;
   }
 `;
 
 const ItemTitle = styled.h2`
   font-family: 'Montserrat';
-  font-weight: 500;
+  font-weight: 400;
   font-size: 15px;
   color: #fff;
-  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 300ms;
+  transform: ${props => (props.active ? 'translateX(15px)' : 'translateX(0)')};
   ${Item}:hover &{
-    transform: scale(1.05);
+    transform: translateX(15px)
   }
 `;
 
@@ -58,7 +50,9 @@ function MenuItem({ genre, title, active, isStatic }) {
         active={active}
         static={isStatic}
         onClick={handleChangeItem} >
-        <ItemTitle>{title ? title : genre.name}</ItemTitle>
+        <ItemTitle active={active} >
+          {title ? title : genre.name}
+        </ItemTitle>
       </Item>
     </div>
   );

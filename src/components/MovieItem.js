@@ -27,7 +27,7 @@ const MovieImg = styled.img`
   display: block;
   object-fit: cover;
   border-radius: 0.8rem;
-  box-shadow: 0px 0px 45px -33px rgba(0,0,0,1);
+  box-shadow: 0px 0px 23px 2px rgba(0,0,0,0.75);
 `;
 
 const MovieLost = styled.div`
@@ -48,7 +48,7 @@ const Title = styled.h2`
   font-size: 16px;
   font-family: 'Montserrat';
   margin: 0;
-  padding-top: 10px;
+  padding: 15px 0 15px 0;
   font-weight: 500;
   color: #fff;
 `;
@@ -62,14 +62,10 @@ const Vote = styled.h2`
 `;
 
 const Details = styled.div`
-  padding-bottom: 10px;
   display: flex;
   flex-direction: column;
 `;
 
-const StartImg = styled.img`
-  height: 17px;
-`;
 
 const ImageDiv = styled.div`
   display: flex;

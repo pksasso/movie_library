@@ -33,7 +33,7 @@ function Genre({ match }) {
     }
   }, [query,
     setMenuSelected,
-    setMovieList
+    setMovieList,
   ]);
 
   return (

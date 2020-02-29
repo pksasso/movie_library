@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import Item from './MovieItem';
+import Header from './Header';
 
 const List = styled.div`
   width: 100%;
@@ -55,10 +56,7 @@ function MovieList({ header, movieList }) {
 
   return (
     <Wrapper>
-      <HeaderWrapper>
-        <PageTitle>{handleText(header)}</PageTitle>
-        <MoviesText>Movies</MoviesText>
-      </HeaderWrapper>
+      <Header title={handleText(header)} subtitle='Movies' />
       <List>
         {movieList.map(
           movie => {

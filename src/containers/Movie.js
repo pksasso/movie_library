@@ -3,12 +3,19 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { animateScroll } from 'react-scroll';
 
-import { getMovieDetails } from '../connections/connections';
+import { getMovieDetails, getMovieRecommendations } from '../connections/connections';
 import star from '../assets/star.svg';
+import MovieList from '../components/MovieList';
+import Loader from '../components/Loader';
 
 import { MovieContext } from '../contexts/MovieContext';
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction:column;
+`;
+
+const MovieWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -115,12 +122,15 @@ const GenreItem = styled.p`
 function Movie({ match }) {
   const { setMenuSelected } = useContext(MovieContext);
   const [movie, setMovie] = useState({})
+  const [recommendations, setRecommendations] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     animateScroll.scrollToTop({ smooth: true });
     setMenuSelected('');
+    getMovieRecommendations(setRecommendations, match.params.id, setIsLoading);
     setMovie(getMovieDetails(match.params.id, setMovie));
-  }, [match.params.id, setMenuSelected]);
+  }, [match.params.id]);
 
   function splitYear(date) {
     if (!date) {
@@ -147,8 +157,9 @@ function Movie({ match }) {
   }
 
   return (
-    <>
-      <Wrapper>
+    <Wrapper>
+
+      <MovieWrapper>
         <WrappImage>
           <MovieImg src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`}
             alt="poster" />
@@ -165,8 +176,13 @@ function Movie({ match }) {
           </GenreList>
           <Overview>{movie.overview}</Overview>
         </InfoWrapper>
-      </Wrapper>
-    </>
+      </MovieWrapper>
+      {console.log(isLoading)}
+      {
+        isLoading ? <Loader /> :
+          <MovieList header={'Recommendation'} movieList={recommendations} />
+      }
+    </Wrapper>
   )
 }
 

@@ -24,6 +24,16 @@ export const getMovieDetails = async (id, setMovie) => {
   setMovie(res.data);
 }
 
+
+export const getMovieRecommendations = async (
+  setRecommendations,
+  movieId,
+  setIsLoading) => {
+  const res = await api.get(`/movie/${movieId}/recommendations`);
+  setRecommendations(res.data.results);
+  setIsLoading(false);
+}
+
 export const loadGenre = () => {
   return api.get(`/genre/movie/list`).then(
     function (res) { return res }

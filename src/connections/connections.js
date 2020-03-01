@@ -19,9 +19,10 @@ export const getMovieByGenre = async (setMovieList, genreId) => {
   setMovieList(res.data.results);
 }
 
-export const getMovieDetails = async (id, setMovie) => {
+export const getMovieDetails = async (id, setMovie, setMovieLoading) => {
   const res = await api.get(`/movie/${id}`);
   setMovie(res.data);
+  setMovieLoading(false)
 }
 
 

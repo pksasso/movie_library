@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { animateScroll } from 'react-scroll';
 
-import { getMovieDetails, getMovieRecommendations } from '../connections/connections';
+import { getMovieDetails, getMovieRecommendations, clearMovie } from '../connections/connections';
 import star from '../assets/star.svg';
 import MovieList from '../components/MovieList';
 import Loader from '../components/Loader';
@@ -13,6 +13,8 @@ import { MovieContext } from '../contexts/MovieContext';
 const Wrapper = styled.div`
   display: flex;
   flex-direction:column;
+  width:100%;
+  height:100%;
 `;
 
 const MovieWrapper = styled.div`
@@ -123,13 +125,17 @@ function Movie({ match }) {
   const { setMenuSelected } = useContext(MovieContext);
   const [movie, setMovie] = useState({})
   const [recommendations, setRecommendations] = useState([]);
+  const [movieLoading, setMovieLoading] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     animateScroll.scrollToTop({ smooth: true });
     setMenuSelected('');
     getMovieRecommendations(setRecommendations, match.params.id, setIsLoading);
-    setMovie(getMovieDetails(match.params.id, setMovie));
+    setMovie(getMovieDetails(match.params.id, setMovie, setMovieLoading));
+    return () => {
+      clearMovie(setRecommendations);
+    }
   }, [match.params.id]);
 
   function splitYear(date) {
@@ -159,28 +165,38 @@ function Movie({ match }) {
   return (
     <Wrapper>
 
-      <MovieWrapper>
-        <WrappImage>
-          <MovieImg src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`}
-            alt="poster" />
-        </WrappImage>
-        <InfoWrapper>
-          <Title>{movie.title + ' (' + splitYear(movie.release_date) + ')'}</Title>
-          <Tagline>{movie.tagline}</Tagline>
-          <StarsWrapper>
-            <StartImg src={star} alt="star" />
-            <Vote>{movie.vote_average + '/10'}</Vote>
-          </StarsWrapper>
-          <GenreList>
-            {renderGenre(movie.genres)}
-          </GenreList>
-          <Overview>{movie.overview}</Overview>
-        </InfoWrapper>
-      </MovieWrapper>
-      {console.log(isLoading)}
+      {movieLoading
+        ? <Loader />
+        : <MovieWrapper>
+          <WrappImage>
+            <MovieImg
+              src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`}
+              alt="poster" />
+          </WrappImage>
+          <InfoWrapper>
+            <Title>
+              {movie.title + ' (' + splitYear(movie.release_date) + ')'}
+            </Title>
+            <Tagline>{movie.tagline}</Tagline>
+            <StarsWrapper>
+              <StartImg
+                src={star}
+                alt="star" />
+              <Vote>{movie.vote_average + '/10'}</Vote>
+            </StarsWrapper>
+            <GenreList>
+              {renderGenre(movie.genres)}
+            </GenreList>
+            <Overview>{movie.overview}</Overview>
+          </InfoWrapper>
+        </MovieWrapper>}
       {
-        isLoading ? <Loader /> :
-          <MovieList header={'Recommendation'} movieList={recommendations} />
+        isLoading
+          ? <Loader />
+          : <MovieList
+            header={'Recommendation'}
+            movieList={recommendations}
+          />
       }
     </Wrapper>
   )

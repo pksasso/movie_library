@@ -15,16 +15,16 @@ function Genre({ match }) {
 
   const query = match.params.name.replace(/\s+/g, ' ').toLowerCase();
 
-  function fetchGenreId() {
-    console.log('rodei')
-    loadGenre().then(res => {
-      getMovieByGenre(setMovieList,
-        res.data.genres.find(item => item.name.toLowerCase() === query).id
-      )
-    });
-  }
-
   useEffect(() => {
+
+    function fetchGenreId() {
+      loadGenre().then(res => {
+        getMovieByGenre(setMovieList,
+          res.data.genres.find(item => item.name.toLowerCase() === query).id
+        )
+      });
+    }
+
     animateScroll.scrollToTop({ smooth: true });
     fetchGenreId();
     setMenuSelected(query);

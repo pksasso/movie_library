@@ -10,7 +10,7 @@ export const clearMovie = (setMovieList) => {
 }
 
 export const getMovieByGenre = async (setMovieList, genreId) => {
-  const res = await api.get(`/discover/movie/`, {
+  const res = await api.get('/discover/movie', {
     params: {
       with_genres: genreId,
       sort_by: 'popularity.desc',

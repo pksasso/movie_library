@@ -1,4 +1,4 @@
-<h1 align="center" style={none}>Movie Library</h1>
+<h1 align="center" >Movie Library</h1>
 <div align="center"><strong>A simple aplication to get movie infos 🎥</strong></div>
 <p align="center">
   <a aria-label="ReactJS" href="https://pt-br.reactjs.org/">
@@ -11,15 +11,15 @@
     <img src="https://img.shields.io/badge/Styled Components-5.0.1-db7093"></img>
   </a>
 </p> 
-<a href="pksasso.github.io/movie_library">
-<h2 align="center">
-  <strong>Live here </strong>
-</h2>
-</a>
 
-<a href="pksasso.github.io/movie_library">
-  <img src="thumb.png">
-</a>
+  
+
+## [Live here](https://pksasso.github.io/movie_library)
+
+  
+
+
+<img src="thumb.png">
 
 This application use an API provided by [The Movie Database](https://www.themoviedb.org/)
 

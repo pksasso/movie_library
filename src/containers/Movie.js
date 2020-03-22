@@ -11,36 +11,53 @@ import { MovieContext } from '../contexts/MovieContext';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width:100%;
-  height:100%;
+  margin: 0 auto;
+  @media (max-width: 900px) {
+    margin-top: 75px;
+  }
 `;
 
 const MovieWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content:center;
+  
   width: 100%;
   height: min-content;
+  @media (max-width: 768px) {
+    flex-direction:column;
+    align-items:center;
+  }
 `;
 
 const MovieImg = styled.img`
-  width: 100%;
-  max-height: 100%;
-  max-width: 100%;
+  max-height:100%;
   height: auto;
-  display: block;
   object-fit: cover;
+  max-width:100%;
   border-radius: 0.8rem;
 `;
 
 const WrappImage = styled.div`
   width: 100%;
-  max-width: 33%;
+  max-width:35%;
+  align-items:center;
+  height:auto;
   flex: 1 1 40%;
-  align-items: center;
-  justify-content: center;
   display: flex;
-  padding: 4rem;
+  padding: 25px;
+  @media (max-width: 768px) {
+    padding: 0px;
+    max-width:50%;
+  }
+  @media (max-width: 500px) {
+    padding: 0px;
+    max-width:60%;
+  }
 `;
 
 const Title = styled.h3`
@@ -50,23 +67,35 @@ const Title = styled.h3`
   font-size: 28px;
   margin: 0;
   padding: 0;
+  @media (max-width: 768px) {
+    font-size:20px;
+    margin: 0 15px 0 15px;
+  }
 `;
 
 const InfoWrapper = styled.div`
-  width:50%;
-  display: flex;
-  flex-direction: column;
-  height: min-content;
-  padding-top: 50px;
+  
+  margin-top:25px;
+  margin-right:25px;
+  width:100%;
+  flex: 1 1 60%;
+  @media (max-width: 768px) {
+    width:100%;
+    margin-right:0;
+  }
 `;
 
 const Tagline = styled.h3`
   color: #ababab;
-  margin: 0;
+  
   padding: 0;
   font-family: 'Montserrat';
   font-weight: 400;
   font-size: 20px;
+  @media (max-width: 768px) {
+    font-size:16px;
+    margin: 0 15px 0 15px;
+  }
 `;
 
 const Overview = styled.p`
@@ -74,15 +103,23 @@ const Overview = styled.p`
   margin: 0;
   padding-top: 30px;
   font-family: 'Montserrat';
+  @media (max-width: 768px) {
+    
+    margin: 0 15px 0 15px;
+  }
 `;
 
 const GenreList = styled.div`
   display: flex;
+  flex-wrap:wrap;
   flex-direction: row;
   width: 100%;
   margin: 20px 0 0 0;
   padding: 0;
   height: min-content;
+  @media (max-width: 768px) {
+    font-size:14px
+  }
   
 `;
 
@@ -94,7 +131,7 @@ const LinkWrap = styled(Link)`
 `;
 
 const GenreItem = styled.p`
-  margin:0;
+  margin:5px;
   color:#fff;
   background-color: #171e22;
   width: min-content;
@@ -116,13 +153,15 @@ const Infos = styled.div`
   align-items:center;
   justify-content:space-evenly;
   box-shadow: 0px 0px 23px -8px rgba(0,0,0,0.75);
-  width:100%;
   height:90px ;
-  margin: 25px 0 0 0;
+  margin-top:25px;
   background-color: ${props => handlerVoteColor(props.vote)};
+  @media (max-width: 768px) {
+    margin-left:0;
+  }
 `;
 
-const InfoDetails = styled.div`
+const BarInfos = styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
@@ -131,9 +170,12 @@ const InfoDetails = styled.div`
   font-family: 'Montserrat';
   font-weight:400;
   font-size: 16px;
+  @media (max-width: 768px) {
+    font-size:14px;
+  }
 `;
 
-const InfoText = styled.h2`
+const BarText = styled.h2`
   margin:0;
   font-family: 'Montserrat';
   font-weight: 700;
@@ -144,6 +186,9 @@ const ReleaseDate = styled.h2`
   font-family: 'Montserrat';
   font-weight:400;
   font-size:16px;
+  @media (max-width: 768px) {
+    margin: 0 15px 0 15px;
+  }
 `;
 
 const handlerVoteColor = (vote) => {
@@ -210,24 +255,24 @@ function Movie({ match }) {
               {renderGenre(movie.genres)}
             </GenreList>
             <Infos vote={parseInt(movie.vote_average)}>
-              <InfoDetails>
+              <BarInfos>
                 Runtime
-                <InfoText>
+                <BarText>
                   {movie.runtime + 'min'}
-                </InfoText>
-              </InfoDetails>
-              <InfoDetails>
+                </BarText>
+              </BarInfos>
+              <BarInfos>
                 Rating
-                  <InfoText>
+                  <BarText>
                   {movie.vote_average}
-                </InfoText>
-              </InfoDetails>
-              <InfoDetails>
+                </BarText>
+              </BarInfos>
+              <BarInfos>
                 Revenue
-                  <InfoText>
+                  <BarText>
                   {'U$' + movie.revenue}
-                </InfoText>
-              </InfoDetails>
+                </BarText>
+              </BarInfos>
             </Infos>
             <Overview>{movie.overview}</Overview>
           </InfoWrapper>

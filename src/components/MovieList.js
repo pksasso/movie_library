@@ -13,6 +13,9 @@ const List = styled.div`
   padding: 0px 20px 0px 20px ; 
   grid-row-gap: 50px;
   grid-column-gap: 20px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1;
+  }
 `;
 
 const Wrapper = styled.div`

@@ -22,6 +22,9 @@ const Title = styled.h2`
   letter-spacing: -0.5px;
   color: #fff;
   margin: 15px 0 0 15px;
+  @media (max-width: 768px) {
+  font-size:18px; 
+  }
 `;
 
 function Header({ title, subtitle }) {

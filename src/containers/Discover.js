@@ -1,10 +1,18 @@
 import React, { useEffect, useContext } from 'react';
 import { animateScroll } from 'react-scroll';
+import styled from 'styled-components';
 
 import MovieList from '../components/MovieList';
 import { getMovie } from '../connections/connections';
 
 import { MovieContext } from '../contexts/MovieContext';
+
+const Wrapper = styled.div`
+  width: 100%;
+  @media (max-width: 900px){
+    margin-top:50px;
+  }
+`;
 
 function Discover({ match }) {
 
@@ -22,7 +30,9 @@ function Discover({ match }) {
 
   return (
     <>
-      <MovieList header={query} movieList={movieList} />
+      <Wrapper>
+        <MovieList header={query} movieList={movieList} />
+      </Wrapper>
     </>
   );
 }

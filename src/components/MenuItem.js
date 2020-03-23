@@ -28,7 +28,7 @@ const ItemTitle = styled.h2`
   }
 `;
 
-function MenuItem({ genre, title, active, isStatic }) {
+function MenuItem({ genre, title, active, isStatic, setOpen, open }) {
 
   const { setMenuSelected } = useContext(MovieContext);
 
@@ -39,8 +39,10 @@ function MenuItem({ genre, title, active, isStatic }) {
   function handleChangeItem() {
     if (isStatic) {
       setMenuSelected((editWord(title)));
+      setOpen(!open);
     } else {
       setMenuSelected(genre.name.toLowerCase());
+      setOpen(!open);
     }
   }
 

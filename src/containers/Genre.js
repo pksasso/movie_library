@@ -1,10 +1,18 @@
 import React, { useEffect, useContext } from 'react';
 import { animateScroll } from 'react-scroll';
+import styled from 'styled-components';
 
 import MovieList from '../components/MovieList';
 import { getMovieByGenre, clearMovie, loadGenre } from '../connections/connections';
 
 import { MovieContext } from '../contexts/MovieContext';
+
+const Wrapper = styled.div`
+    width: 100%;
+  @media (max-width: 900px){
+    margin-top:50px;
+  }
+`;
 
 function Genre({ match }) {
 
@@ -37,9 +45,9 @@ function Genre({ match }) {
   ]);
 
   return (
-    <>
+    <Wrapper>
       <MovieList header={query} movieList={movieList} />
-    </>
+    </Wrapper>
   );
 }
 

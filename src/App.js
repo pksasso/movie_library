@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import {
   HashRouter as Router,
@@ -9,6 +9,9 @@ import {
 
 import { MovieProvider } from './contexts/MovieContext';
 import SideBar from './components/SideBar';
+import Burger from './components/Burger';
+import Drawer from './components/Drawer';
+import { useOnClickOutside } from './hooks/hooks';
 
 import Discover from './containers/Discover';
 import Genre from './containers/Genre';
@@ -38,6 +41,7 @@ const AppBar = styled.div`
   @media (max-width: 900px) {
     display: flex;
     position: fixed;
+    z-index: 1;
   }
   @media (max-width: 768px) {
     margin-bottom: 25px;
@@ -45,12 +49,21 @@ const AppBar = styled.div`
 `;
 
 function App() {
+
+  const [open, setOpen] = useState(false);
+  const node = useRef();
+
+  useOnClickOutside(node, () => setOpen(false));
+
   return (
     <>
       <Router>
         <MovieProvider>
-          <Body>
-            <AppBar />
+          <Body open={open}>
+            <AppBar ref={node}>
+              <Burger open={open} setOpen={setOpen} />
+              <Drawer open={open} setOpen={setOpen} />
+            </AppBar>
             <Side>
               <SideBar />
             </Side>

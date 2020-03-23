@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 200px;
+  z-index: 1;
   background-color: #171e22;
 `;
 
@@ -47,7 +48,6 @@ const Heading = styled.h2`
 
 const LinkWrap = styled(Link)`
   text-decoration:none;
-
 `;
 
 function SideBar() {
@@ -79,6 +79,8 @@ function SideBar() {
           title={categorie}
           active={menuSelected === editWord(categorie) ? true : false}
           isStatic={true}
+          setOpen={() => { }}
+          open={false}
         />
       </LinkWrap>
     );
@@ -102,6 +104,8 @@ function SideBar() {
               genre={gen}
               active={menuSelected === gen.name.toLowerCase() ? true : false}
               isStatic={false}
+              setOpen={() => { }}
+              open={false}
             />
           </LinkWrap>
         )}

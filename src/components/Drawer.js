@@ -13,11 +13,12 @@ const LinkWrap = styled(Link)`
 `;
 
 const Wrapper = styled.div`
-  width:80%;
+  width: 200px;
   background: #171e22;
-  z-index: 1;
-  padding-top: 75px;
-  position: absolute;
+  margin-top: 50px;
+  padding-top: 25px;
+  height: ${({ size }) => `${size - 70}px`};
+  overflow-y: scroll;
   transition: transform 0.3s ease-in-out;
   transform: ${({ open }) => open ? 'translateX(0%)' : 'translateX(-100%)'};
 `;
@@ -63,7 +64,10 @@ function Drawer({ open, setOpen }) {
 
   return (
     <>
-      <Wrapper open={open}>
+      <Wrapper
+        open={open}
+        size={window.innerHeight}
+      >
         <Heading>Discover</Heading>
         {renderStaticCategories()}
         <Heading>Genres</Heading>

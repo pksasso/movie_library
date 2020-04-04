@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Item from './MovieItem';
 import Header from './Header';
+import Pagination from './Pagination';
 
 const List = styled.div`
   width: 100%;
@@ -25,7 +26,13 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-function MovieList({ header, movieList }) {
+function MovieList({
+  header,
+  movieList,
+  actualPage,
+  setPage,
+  maxPage,
+}) {
 
   useEffect(() => {
   }, [movieList])
@@ -46,6 +53,12 @@ function MovieList({ header, movieList }) {
             />
           })}
       </List>
+      <Pagination
+        actualPage={actualPage}
+        route={header}
+        setPage={setPage}
+        maxPage={maxPage}
+      />
     </Wrapper>
   );
 }

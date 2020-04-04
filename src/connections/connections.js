@@ -1,22 +1,29 @@
 import api from '../api/api';
 
-export const getMovie = async (setMovieList, route) => {
-  const res = await api.get(`/movie/${route}`);
+export const getMovie = async (setMovieList, route, page, setTotalPages) => {
+  const res = await api.get(`/movie/${route}`, {
+    params: {
+      page: page
+    }
+  });
   setMovieList(res.data.results);
+  setTotalPages(res.data.total_pages);
 }
 
 export const clearMovie = (setMovieList) => {
   setMovieList([]);
 }
 
-export const getMovieByGenre = async (setMovieList, genreId) => {
+export const getMovieByGenre = async (setMovieList, genreId, page, setTotalPages) => {
   const res = await api.get('/discover/movie', {
     params: {
       with_genres: genreId,
+      page: page,
       sort_by: 'popularity.desc',
     }
   });
   setMovieList(res.data.results);
+  setTotalPages(res.data.total_pages);
 }
 
 export const getMovieDetails = async (id, setMovie, setMovieLoading) => {

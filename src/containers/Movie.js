@@ -244,18 +244,18 @@ function Movie({ match }) {
     }
 
     if (billion > 0) {
-      return `U$ ${billion},${million} B`
+      return `U$ ${billion}.${million} B`
     }
 
     if (million > 0) {
-      return `U$ ${million},${thousands} M`;
+      return `U$ ${million}.${thousands} M`;
     }
 
     if (value === 0) {
       return 'Uninformed';
     }
 
-    return value;
+    return `U$ ${value}`;
   }
 
   return (

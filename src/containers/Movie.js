@@ -233,6 +233,31 @@ function Movie({ match }) {
     }
   }
 
+  function formatRevenue(value) {
+
+    const billion = Math.floor(value / 1000000000);
+    let million = Math.floor(value / 1000000) - (billion * 1000);
+    const thousands = Math.floor(value / 100000) - (million * 10)
+
+    if (billion > 0 && Math.floor(million / 100) === 0) {
+      million = '0' + million;
+    }
+
+    if (billion > 0) {
+      return `U$ ${billion},${million} B`
+    }
+
+    if (million > 0) {
+      return `U$ ${million},${thousands} M`;
+    }
+
+    if (value === 0) {
+      return 'Uninformed';
+    }
+
+    return value;
+  }
+
   return (
     <Wrapper>
       {movieLoading
@@ -270,7 +295,7 @@ function Movie({ match }) {
               <BarInfos>
                 Revenue
                   <BarText>
-                  {'U$' + movie.revenue}
+                  {formatRevenue(movie.revenue)}
                 </BarText>
               </BarInfos>
             </Infos>

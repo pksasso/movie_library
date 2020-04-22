@@ -9,6 +9,7 @@ export const MovieProvider = ({ children }) => {
   const [genreList, setGenreList] = useState([]);
   const [movieSelected, setMovieSelected] = useState();
   const [totalPages, setTotalPages] = useState(0);
+  const [dropdownSelected, setDropdownSelected] = useState({ id: 1, title: "popularity", type: "desc" });
 
   return (
     <MovieContext.Provider value={{
@@ -24,6 +25,8 @@ export const MovieProvider = ({ children }) => {
       setGenreList,
       totalPages,
       setTotalPages,
+      dropdownSelected,
+      setDropdownSelected
     }}>
       {children}
     </MovieContext.Provider>);

@@ -18,13 +18,17 @@ const Wrapper = styled.div`
 function Genre({ match }) {
 
   const [page, setPage] = useState(1);
+  //const [sortBy, setSortBy] = useState('popularity.desc')
 
   const {
     setMenuSelected,
     movieList,
     setMovieList,
     totalPages,
-    setTotalPages } = useContext(MovieContext);
+    setTotalPages,
+    dropdownSelected,
+    setDropdownSelected,
+  } = useContext(MovieContext);
 
   const query = match.params.name.replace(/\s+/g, ' ').toLowerCase();
   const queryData = useQuery();
@@ -32,15 +36,22 @@ function Genre({ match }) {
   const queryPage = queryData.get("page");
 
   useEffect(() => {
+    setDropdownSelected({ id: 1, title: "popularity", type: "desc" });
+  }, [query, setDropdownSelected])
 
-    function fetchGenreId() {
-      loadGenre().then(res => {
-        getMovieByGenre(setMovieList,
-          res.data.genres.find(item => item.name.toLowerCase() === query).id,
-          queryPage, setTotalPages
-        )
-      });
+  useEffect(() => {
+
+
+    if (dropdownSelected !== { id: 1, title: "popularity", type: "desc" }) {
+      console.log('alog')
+      fetchGenreId();
     }
+    // eslint-disable-next-line
+  }, [dropdownSelected])
+
+  useEffect(() => {
+
+
 
     if (!isNaN(pageNumber)) {
       setPage(pageNumber);
@@ -49,10 +60,15 @@ function Genre({ match }) {
     }
 
     animateScroll.scrollToTop({ smooth: true });
-    fetchGenreId();
+    if (dropdownSelected === { id: 1, title: "popularity", type: "desc" }) {
+
+      fetchGenreId();
+    }
+
     setMenuSelected(query);
     return () => {
       clearMovie(setMovieList);
+      setDropdownSelected({ id: 1, title: "popularity", type: "desc" });
     }
   }, [query,
     setMenuSelected,
@@ -60,8 +76,17 @@ function Genre({ match }) {
     setTotalPages,
     page,
     pageNumber,
-    queryPage
+    queryPage,
   ]);
+
+  function fetchGenreId() {
+    loadGenre().then(res => {
+      getMovieByGenre(setMovieList,
+        res.data.genres.find(item => item.name.toLowerCase() === query).id,
+        queryPage, setTotalPages, `${dropdownSelected.title.toLowerCase()}.${dropdownSelected.type}`
+      )
+    });
+  }
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -75,6 +100,9 @@ function Genre({ match }) {
         actualPage={page}
         setPage={setPage}
         maxPage={totalPages}
+        drop={true}
+        setDropdownSelected={setDropdownSelected}
+        dropdownSelected={dropdownSelected}
       />
     </Wrapper>
   );

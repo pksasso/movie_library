@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Item from './MovieItem';
 import Header from './Header';
 import Pagination from './Pagination';
+import Dropdown from './Dropdown';
 
 const List = styled.div`
   width: 100%;
@@ -26,15 +27,28 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
+const HeaderWrapper = styled.div`
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+
 function MovieList({
   header,
   movieList,
   actualPage,
   setPage,
   maxPage,
+  drop,
+  setDropdownSelected,
+  dropdownSelected,
 }) {
 
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
+
   }, [movieList])
 
   function handleText(text) {
@@ -43,7 +57,19 @@ function MovieList({
 
   return (
     <Wrapper>
-      <Header title={handleText(header)} subtitle='Movies' />
+      <HeaderWrapper>
+        <Header title={handleText(header)} subtitle='Movies' />
+        {drop ?
+          <Dropdown
+            open={open}
+            setOpen={setOpen}
+            actualPage={actualPage}
+            setDropdownSelected={setDropdownSelected}
+            dropdownSelected={dropdownSelected}
+          /> :
+          <div></div>
+        }
+      </HeaderWrapper>
       <List>
         {movieList.map(
           movie => {

@@ -45,7 +45,7 @@ function Pagination({
   actualPage,
   route,
   setPage,
-  maxPage
+  maxPage,
 }) {
   return (
     <Wrapper>
